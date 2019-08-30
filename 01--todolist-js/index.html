@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>todolist-原生JavaScript</title>
+		<link rel="stylesheet" type="text/css" href="css/main.css"/>
+	</head>
+	<body>
+		<div id="app">
+			<header>
+				<section>
+					<form id="form" action="javascript:addTodo()">
+						<label for="todoitem">添加代办</label>
+						<input type="text" id="todoitem" placeholder="请输入待办">
+					</form>
+				</section>
+			</header>
+			<main>
+				<!-- 正在进行 start -->
+				<section>
+					<h2 class="title">
+						正在进行
+						<span id="todocount">0</span>
+					</h2>
+					<ul id="todolist">
+						<!-- -->
+					</ul>
+				</section>
+				<!-- 正在进行中 end -->
+				<!-- 已经完成 start -->
+				<section>
+					<h2 class="title">
+						已经完成
+						<span id="dontcount">0</span>
+					</h2>
+					<ul id="donelist">
+						<!-- -->
+					</ul>
+				</section>
+				<!-- 已经完成 end -->
+			</main>
+			<footer>
+				<section>
+					footer
+				</section>
+			</footer>
+		</div>
+		<script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>
