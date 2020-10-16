@@ -10,18 +10,12 @@
 </template>
 
 <script lang="ts">
-import {
-    computed,
-    ref
-} from "vue";
+import { computed, ref } from "vue";
 import {
     getTodoListData,
     updateTodoListData
 } from "../../service";
-import {
-    dataItem,
-    navItem
-} from "../../constant/interfaces";
+import { dataItem } from "../../constant/interfaces";
 import AddTodoItem from "./components/add-todo-item.vue";
 import TodoListNav from "./components/todo-list-nav.vue";
 import DataList from "./components/data-list.vue";

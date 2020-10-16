@@ -12,17 +12,10 @@
 
 <script lang="ts">
 import moment from "moment";
-import {
-    ref,
-    defineComponent
-} from "vue";
+import { ref, defineComponent } from "vue";
 
-import {
-    dataItem
-} from "../../../constant/interfaces";
-import {
-    randomId
-} from "../../../utils";
+import { dataItem } from "../../../constant/interfaces";
+import { randomId } from "../../../utils";
 
 export default defineComponent({
     name: "add-todo-item",

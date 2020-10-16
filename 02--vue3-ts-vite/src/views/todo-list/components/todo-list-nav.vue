@@ -13,13 +13,8 @@
 </template>
 
 <script lang="ts">
-import {
-    defineComponent,
-    ref
-} from "vue";
-import {
-    randomId
-} from "../../../utils";
+import { defineComponent, ref } from "vue";
+import { randomId } from "../../../utils";
 
 export default defineComponent({
     props: {
