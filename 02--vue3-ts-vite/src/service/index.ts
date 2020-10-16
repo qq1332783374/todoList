@@ -39,9 +39,19 @@ export const updateTodoListDataItemCtx = (id: number, ctx: string) => {
 	updateTodoListData(data);
 };
 
+/**
+ * 清除历史记录
+ */
+export const clearTodoListDataHistory = () => {
+	let data = getTodoListData() || [];
+	data = data.filter((item: dataItem) => item.status !== 'history')
+	updateTodoListData(data);
+}
+
 export default {
 	getTodoListData,
 	updateTodoListData,
 	updateTodoListDataItemStatus,
 	updateTodoListDataItemCtx,
+	clearTodoListDataHistory,
 };

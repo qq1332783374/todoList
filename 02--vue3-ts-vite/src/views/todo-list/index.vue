@@ -5,7 +5,7 @@
     <!--导航-->
     <todo-list-nav v-model:active="active" />
     <!--数据展示-->
-    <data-list :data="activeData" :active="active" />
+    <data-list :data="activeData" :active="active" @handleClearHistory="handleClearHistory" />
 </div>
 </template>
 
@@ -48,11 +48,17 @@ export default {
             updateTodoListData(dataList.value);
         };
 
+        // 清空历史
+        const handleClearHistory = () => {
+            dataList.value = dataList.value.filter((item: dataItem) => item.status !== 'history')
+        }
+
         return {
             dataList,
             active,
             activeData,
             handleAddTodo,
+            handleClearHistory,
         };
     },
 };

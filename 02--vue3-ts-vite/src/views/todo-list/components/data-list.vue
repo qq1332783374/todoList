@@ -9,20 +9,20 @@
             >
                 {{ item.context }}
             </span>
-                <!-- 完成 -->
-                <span
-                        class="todo-list__data-item-complete"
-                        v-show="item.status === 'todo'"
-                        @click="handleClickItem(item, 'complete')"
-                >
+            <!-- 完成 -->
+            <span
+                    class="todo-list__data-item-complete"
+                    v-show="item.status === 'todo'"
+                    @click="handleClickItem(item, 'complete')"
+            >
                 √
             </span>
-                <!-- 删除 -->
-                <span
-                        class="todo-list__data-item-del"
-                        v-show="item.status !== 'history'"
-                        @click="handleClickItem(item, 'history')"
-                >
+            <!-- 删除 -->
+            <span
+                    class="todo-list__data-item-del"
+                    v-show="item.status !== 'history'"
+                    @click="handleClickItem(item, 'history')"
+            >
                 x
             </span>
             </p>
@@ -38,17 +38,25 @@
                 >
                 确定
             </span>
-                <span
-                        v-show="isUpdateCtx === item.id"
-                        @click="handleCancelUpdate(item)"
-                >
+            <span
+                    v-show="isUpdateCtx === item.id"
+                    @click="handleCancelUpdate(item)"
+            >
                 取消
             </span>
             </p>
         </li>
     </ul>
+    <!--空状态-->
     <div class="todo-list__empty" v-if="data.length === 0">
         {{emptyCtx[active]}}
+    </div>
+    <div
+            class="todo-list__clear"
+            v-if="active === 'history' && data.length !== 0"
+            @click="handleClearHistory"
+    >
+        清空历史
     </div>
 </template>
 
@@ -63,6 +71,7 @@
     import {
         updateTodoListDataItemCtx,
         updateTodoListDataItemStatus,
+        clearTodoListDataHistory
     } from '../../../service';
 
     export default defineComponent({
@@ -76,6 +85,7 @@
                 default: () => [],
             },
         },
+        emits: ['handleClearHistory'],
         setup(props, ctx) {
             const isUpdateCtx = ref(-99);
 
@@ -107,6 +117,11 @@
                 updateTodoListDataItemCtx(item.id, item.context);
             };
 
+            const handleClearHistory = () => {
+                clearTodoListDataHistory()
+                ctx.emit('handleClearHistory')
+            }
+
             return {
                 isUpdateCtx,
                 emptyCtx,
@@ -114,6 +129,7 @@
                 handleShowUpdateContext,
                 handleCancelUpdate,
                 handleConfirmUpdate,
+                handleClearHistory,
             };
         },
     });
