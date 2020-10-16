@@ -44,7 +44,7 @@ export default {
 
         // 添加代办
         const handleAddTodo = (item: dataItem) => {
-            dataList.value.push(item);
+            dataList.value.unshift(item);
             updateTodoListData(dataList.value);
         };
 

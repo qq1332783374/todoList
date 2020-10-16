@@ -6,6 +6,7 @@
 </template>
 
 <script lang="ts">
+import moment from "moment";
 import {
     ref,
     defineComponent
@@ -32,6 +33,7 @@ export default defineComponent({
                 context: todoContext.value,
                 defaultVal: todoContext.value,
                 status: "todo",
+                createTime: moment().format("YYYY-MM-DD HH:mm:ss"),
             };
             // 2. 事件传递
             ctx.emit("handleAddTodo", item);

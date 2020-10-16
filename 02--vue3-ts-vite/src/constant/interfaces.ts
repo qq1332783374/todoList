@@ -3,6 +3,7 @@ export interface dataItem {
 	context: string;
 	status: string;
 	defaultVal: string;
+	createTime: string;
 }
 
 export interface navItem {
