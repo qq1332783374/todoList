@@ -1,7 +1,7 @@
 <template>
-<ul class="todo-list__data">
-    <li class="todo-list__data-item" v-for="item in data" :key="item.id">
-        <p v-if="isUpdateCtx !== item.id">
+    <ul class="todo-list__data">
+        <li class="todo-list__data-item" v-for="item in data" :key="item.id">
+            <p v-if="isUpdateCtx !== item.id">
             <span
                     class="todo-list__data-item-value"
                     :class="[item.status !== 'todo' ? 'todo-list__data-item-ed' : '',]"
@@ -9,99 +9,112 @@
             >
                 {{ item.context }}
             </span>
-            <!-- 完成 -->
-            <span
-                    class="todo-list__data-item-complete"
-                    v-show="item.status === 'todo'"
-                    @click="handleClickItem(item, 'complete')"
-            >
+                <!-- 完成 -->
+                <span
+                        class="todo-list__data-item-complete"
+                        v-show="item.status === 'todo'"
+                        @click="handleClickItem(item, 'complete')"
+                >
                 √
             </span>
-            <!-- 删除 -->
-            <span
-                    class="todo-list__data-item-del"
-                    v-show="item.status !== 'history'"
-                    @click="handleClickItem(item, 'history')"
-            >
+                <!-- 删除 -->
+                <span
+                        class="todo-list__data-item-del"
+                        v-show="item.status !== 'history'"
+                        @click="handleClickItem(item, 'history')"
+                >
                 x
             </span>
-        </p>
-        <p v-else>
-            <!-- 修改 -->
-            <input
-                    type="text"
-                    v-model="item.context"
-            />
-            <span
-                    v-show="isUpdateCtx === item.id"
-                    @click="handleConfirmUpdate(item)"
-            >
+            </p>
+            <p v-else>
+                <!-- 修改 -->
+                <input
+                        type="text"
+                        v-model="item.context"
+                />
+                <span
+                        v-show="isUpdateCtx === item.id"
+                        @click="handleConfirmUpdate(item)"
+                >
                 确定
             </span>
-            <span
-                    v-show="isUpdateCtx === item.id"
-                    @click="handleCancelUpdate(item)"
-            >
+                <span
+                        v-show="isUpdateCtx === item.id"
+                        @click="handleCancelUpdate(item)"
+                >
                 取消
             </span>
-        </p>
-    </li>
-</ul>
+            </p>
+        </li>
+    </ul>
+    <div class="todo-list__empty" v-if="data.length === 0">
+        {{emptyCtx[active]}}
+    </div>
 </template>
 
 <script lang="ts">
-import {
-    defineComponent,
-    ref
-} from 'vue';
-import {
-    dataItem
-} from '../../../constant/interfaces';
-import {
-    updateTodoListDataItemCtx,
-    updateTodoListDataItemStatus,
-} from '../../../service';
+    import {
+        defineComponent,
+        ref
+    } from 'vue';
+    import {
+        dataItem
+    } from '../../../constant/interfaces';
+    import {
+        updateTodoListDataItemCtx,
+        updateTodoListDataItemStatus,
+    } from '../../../service';
 
-export default defineComponent({
-    name: 'data-list',
-    props: {
-        data: {
-            type: Array,
-            default: () => [],
+    export default defineComponent({
+        name: 'data-list',
+        props: {
+            active: {
+                type: String,
+            },
+            data: {
+                type: Array,
+                default: () => [],
+            },
         },
-    },
-    setup(props, ctx) {
-        const isUpdateCtx = ref(-99);
+        setup(props, ctx) {
+            const isUpdateCtx = ref(-99);
 
-        const handleClickItem = (item: dataItem, status: string) => {
-            item.status = status;
-            updateTodoListDataItemStatus(item.id, item.status);
-        };
-
-        const handleShowUpdateContext = (item: dataItem) => {
-            if (item.status === 'todo') {
-                isUpdateCtx.value = item.id;
+            const emptyCtx = {
+                'todo': '暂时没什么事情干，吃饱了找点事情干吧！',
+                'complete': '都没什么事情干嘛？完成的事情，怎么空空如也！',
+                'history': '事事顺心，心想事成！'
             }
-            item['defaultVal'] = item.context;
-        };
 
-        const handleCancelUpdate = (item: dataItem) => {
-            isUpdateCtx.value = -99;
-            item.context = item.defaultVal;
-        };
+            const handleClickItem = (item: dataItem, status: string) => {
+                item.status = status;
+                updateTodoListDataItemStatus(item.id, item.status);
+            };
 
-        const handleConfirmUpdate = (item: dataItem) => {
-            isUpdateCtx.value = -99;
-            updateTodoListDataItemCtx(item.id, item.context);
-        };
+            const handleShowUpdateContext = (item: dataItem) => {
+                if (item.status === 'todo') {
+                    isUpdateCtx.value = item.id;
+                }
+                item['defaultVal'] = item.context;
+            };
 
-        return {
-            isUpdateCtx,
-            handleClickItem,
-            handleShowUpdateContext,
-            handleCancelUpdate,
-            handleConfirmUpdate,
-        };
-    },
-});
+            const handleCancelUpdate = (item: dataItem) => {
+                isUpdateCtx.value = -99;
+                item.context = item.defaultVal;
+            };
+
+            const handleConfirmUpdate = (item: dataItem) => {
+                isUpdateCtx.value = -99;
+                updateTodoListDataItemCtx(item.id, item.context);
+            };
+
+            return {
+                isUpdateCtx,
+                emptyCtx,
+                handleClickItem,
+                handleShowUpdateContext,
+                handleCancelUpdate,
+                handleConfirmUpdate,
+            };
+        },
+    });
 </script>

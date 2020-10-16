@@ -9,9 +9,6 @@
     >
         {{ nav.name }}
     </div>
-    <div class="todo-list-empty" v-if="navData.length === 0">
-
-    </div>
 </nav>
 </template>
 
@@ -20,9 +17,6 @@ import {
     defineComponent,
     ref
 } from "vue";
-import {
-    dataItem
-} from "../../../constant/interfaces";
 import {
     randomId
 } from "../../../utils";
@@ -35,11 +29,6 @@ export default defineComponent({
     },
     name: "todo-list-nav",
     setup(props, ctx) {
-        const emptyCtx = ref({
-            'todo': '暂时没什么事情干，吃饱了找点事情干吧！',
-            'complete': '都没什么事情干嘛？完成的事情，怎么空空如也！！',
-            'history': ''
-        })
 
         const navData = ref([{
                 id: randomId(),

@@ -5,7 +5,7 @@
     <!--导航-->
     <todo-list-nav v-model:active="active" />
     <!--数据展示-->
-    <data-list :data="activeData" />
+    <data-list :data="activeData" :active="active" />
 </div>
 </template>
 
