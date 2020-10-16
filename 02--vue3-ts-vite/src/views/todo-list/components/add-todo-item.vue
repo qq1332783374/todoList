@@ -1,6 +1,6 @@
 <template>
 <div class="todo-list__add">
-    <input type="text" v-model="todoContext" />
+    <input type="text" v-model="todoContext" @keydown.enter="handleAddTodo" />
     <button type="button" @click="handleAddTodo">添加代办</button>
 </div>
 </template>
