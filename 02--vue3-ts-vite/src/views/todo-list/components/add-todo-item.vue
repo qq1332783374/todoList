@@ -1,7 +1,12 @@
 <template>
 <div class="todo-list__add">
-    <input type="text" v-model="todoContext" @keydown.enter="handleAddTodo" />
-    <button type="button" @click="handleAddTodo">添加代办</button>
+    <h2>ToDos</h2>
+    <input
+            type="text"
+            v-model="todoContext"
+            @keydown.enter="handleAddTodo"
+            placeholder="请输入待办事项"
+    />
 </div>
 </template>
 
@@ -26,8 +31,8 @@ export default defineComponent({
 
         const handleAddTodo = () => {
             // 0. 判断数值是否为空
-            if (!todoContext.value) return alert("请添加代办");
-            // 1. 添加代办
+            if (!todoContext.value) return alert("请添加待办");
+            // 1. 添加待办
             const item: dataItem = {
                 id: randomId(),
                 context: todoContext.value,

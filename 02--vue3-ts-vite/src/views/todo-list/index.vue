@@ -57,3 +57,7 @@ export default {
     },
 };
 </script>
+
+<style lang="scss">
+@import "./todo-list.scss";
+</style>
